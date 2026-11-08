@@ -1,0 +1,84 @@
+[
+    {
+      "id": 1,
+      "name": "Notebook Pro",
+      "description": "Uma máquina potente para trabalho e estudos, com 16GB de RAM.",
+      "price": 7500.00,
+      "category": "Eletrônicos",
+      "imageUrl": "/images/notebook.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Mouse Gamer XYZ",
+      "description": "Mouse com 16.000 DPI, 6 botões programáveis e RGB.",
+      "price": 350.00,
+      "category": "Acessórios",
+      "imageUrl": "/images/mouse.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Teclado Mecânico",
+      "description": "Teclado compacto (TKL) com switches blue e iluminação branca.",
+      "price": 450.00,
+      "category": "Acessórios",
+      "imageUrl": "/images/teclado.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Monitor Ultrawide 34\"",
+      "description": "Monitor 34 polegadas WQHD para máxima produtividade.",
+      "price": 2800.00,
+      "category": "Eletrônicos",
+      "imageUrl": "/images/monitor.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Headset Pro",
+      "description": "Fone de alta fidelidade com microfone cancelador de ruído.",
+      "price": 1200.00,
+      "category": "Acessórios",
+      "imageUrl": "/images/headset.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Cadeira Gamer Ergonômica",
+      "description": "Cadeira ergonômica com suporte lombar e ajuste 4D.",
+      "price": 1800.00,
+      "category": "Casa",
+      "imageUrl": "/images/cadeira.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Livro: Código Limpo",
+      "description": "Um manual essencial de agilidade e boas práticas de software.",
+      "price": 95.00,
+      "category": "Livros",
+      "imageUrl": "/images/livro1.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Smartwatch Pro 5",
+      "description": "Relógio inteligente com GPS, monitoramento de O2 e ECG.",
+      "price": 2100.00,
+      "category": "Acessórios",
+      "imageUrl": "/images/relogio.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Cafeteira Expressa",
+      "description": "Cafeteira automática com moedor de grãos integrado.",
+      "price": 950.00,
+      "category": "Casa",
+      "imageUrl": "/images/cafeteira.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Livro: O Programador Pragmático",
+      "description": "De aprendiz a mestre, um guia clássico para desenvolvedores.",
+      "price": 120.00,
+      "category": "Livros",
+      "imageUrl": "/images/livro2.jpg"
+    }
+  ]
+
+  

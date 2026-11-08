@@ -1,0 +1,47 @@
+/* packages/client/src/pages/CartControls.css */
+
+.cart-controls {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .control-button {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+  
+  .quantity-display {
+    margin: 0 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  .remove-button {
+    background-color: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-left: 20px;
+    text-decoration: underline;
+  }
+  
+  .remove-button:hover {
+    color: #a71d2a;
+  }
+  
+  .item-subtotal {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    margin-top: 10px;
+  }

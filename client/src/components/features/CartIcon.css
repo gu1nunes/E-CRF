@@ -1,0 +1,13 @@
+/* packages/client/src/components/features/CartIcon.css */
+
+.cart-icon-link {
+    font-size: 1.2rem;
+    color: #333;
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  
+  .cart-icon-link:hover {
+    color: #007bff; /* Muda de cor ao passar o mouse */
+  }
