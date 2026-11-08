@@ -11,18 +11,20 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // --- MUDANÇA AQUI ---
-    // Em vez de chamar login(), passamos o email do formulário
-    login(email); 
-    
-    navigate('/'); // Redireciona para a Home após o login
+
+    login(email, password)
+      .then(() => navigate('/'))
+      .catch((error) => {
+        console.error('Erro no login:', error);
+        alert('Falha no login. Tente novamente.');
+      });
   };
 
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
+        <p><span className="service-badge">auth-service</span></p>
         <p>Use qualquer e-mail/senha para esta simulação.</p>
         
         <div className="form-group">

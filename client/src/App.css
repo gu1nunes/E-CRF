@@ -48,3 +48,62 @@ body {
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  .service-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #e3f2fd;
+    color: #0d47a1;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .services-status-panel {
+    margin-top: 24px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .services-status-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .services-status-item {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .service-name {
+    font-weight: 700;
+  }
+
+  .service-state {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .service-state.ok {
+    color: #2e7d32;
+  }
+
+  .service-state.down {
+    color: #b71c1c;
+  }
+
+  .service-meta {
+    color: #495057;
+    font-size: 12px;
+  }

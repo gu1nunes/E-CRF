@@ -8,20 +8,28 @@ import { useCart } from '../../context/CartContext'; // <-- REUSO DE ESTADO
 const RecommendationWidget = ({ currentProductId }) => {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { addToCart } = useCart(); // 1. Pega a função 'addToCart' do contexto
+  const { addToCart, cartItems } = useCart();
 
   useEffect(() => {
     if (!currentProductId) return;
 
     setLoading(true);
-    getRecommendationsForProduct(currentProductId)
+    const viewedIds = JSON.parse(localStorage.getItem('ecrf_viewed_products') || '[]')
+      .filter((id) => Number(id) !== Number(currentProductId));
+    const cartIds = cartItems.map((item) => item.id);
+
+    getRecommendationsForProduct(currentProductId, {
+      viewed: viewedIds.join(','),
+      cart: cartIds.join(','),
+      limit: 4
+    })
       .then(response => {
         setRecommendations(response.data);
       })
       .catch(err => console.error("Erro ao buscar recomendações:", err))
       .finally(() => setLoading(false));
 
-  }, [currentProductId]);
+  }, [currentProductId, cartItems]);
   
   if (loading) return <p>Carregando sugestões...</p>;
   if (recommendations.length === 0) return null;
@@ -31,7 +39,6 @@ const RecommendationWidget = ({ currentProductId }) => {
       <h3>Você também pode gostar</h3>
       <div className="recommendation-list">
         {recommendations.map(prod => (
-          // 2. O MESMO ProductCard, usando a MESMA função de 'addToCart'
           <ProductCard 
             key={`rec-${prod.id}`} 
             product={prod}

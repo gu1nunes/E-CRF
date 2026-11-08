@@ -22,6 +22,9 @@ const ProductDetailPage = () => {
     getProductById(id)
       .then(response => {
         setProduct(response.data); // Salva os dados do produto no estado
+        const viewed = JSON.parse(localStorage.getItem('ecrf_viewed_products') || '[]');
+        const nextViewed = [response.data.id, ...viewed.filter((itemId) => itemId !== response.data.id)].slice(0, 10);
+        localStorage.setItem('ecrf_viewed_products', JSON.stringify(nextViewed));
       })
       .catch(err => console.error("Erro ao buscar produto:", err))
       .finally(() => setLoading(false)); // Esconde "Carregando..."
@@ -46,6 +49,7 @@ const ProductDetailPage = () => {
         <img src={product.imageUrl} alt={product.name} className="product-detail-image" />
         <div className="product-detail-info">
           <h2>{product.name}</h2>
+          <p><span className="service-badge">products-service</span></p>
           <p className="product-detail-description">{product.description}</p>
           <span className="product-detail-price">R$ {product.price.toFixed(2)}</span>
           <button 
@@ -61,6 +65,7 @@ const ProductDetailPage = () => {
 
       {/* 3. Seção de Recomendação (Componente Reutilizado) */}
       {/* Passamos o ID do produto atual para o Widget */}
+      <p><span className="service-badge">recommendation-service</span></p>
       <RecommendationWidget currentProductId={product.id} />
     </div>
   );

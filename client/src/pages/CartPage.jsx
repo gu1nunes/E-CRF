@@ -15,15 +15,19 @@ const CartPage = () => {
     addToCart, 
     removeOneFromCart, 
     removeAllFromCart,
-    clearCart
+    checkout
   } = useCart();
   
   const navigate = useNavigate();
 
   // 2. Função de Checkout
   const handleCheckout = () => {
-    clearCart();
-    navigate('/pedido-concluido');
+    checkout()
+      .then(() => navigate('/pedido-concluido'))
+      .catch((error) => {
+        console.error('Erro no checkout:', error);
+        alert('Nao foi possivel finalizar o pedido.');
+      });
   };
 
   // 3. Se o carrinho estiver vazio
@@ -40,6 +44,7 @@ const CartPage = () => {
   return (
     <div className="cart-page">
       <h2>Seu Carrinho ({cartCount} {cartCount === 1 ? 'item' : 'itens'})</h2>
+      <p><span className="service-badge">cart-service</span></p>
       
       {/* ESTA É A LISTA QUE NÃO ESTÁ APARECENDO */}
       <div className="cart-items-list">

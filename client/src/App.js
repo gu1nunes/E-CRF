@@ -11,6 +11,7 @@ import { UserProvider } from './context/UserContext';
 
 // Layout
 import Header from './components/layout/Header';
+import ServiceStatusPanel from './components/features/ServiceStatusPanel';
 
 // Páginas
 import HomePage from './pages/HomePage';
@@ -38,6 +39,10 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
               </Routes>
             </main>
+
+            <footer>
+              <ServiceStatusPanel />
+            </footer>
           </div>
         </BrowserRouter>
       </CartProvider>

@@ -1,40 +1,43 @@
 import React, { createContext, useState, useContext } from 'react';
+import { loginRequest, meRequest } from '../services/api';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null); // null = deslogado
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // --- MUDANÇA AQUI ---
-  // A função de Login agora aceita o email
-  const login = (email) => {
-    
-    // 1. Extrai o nome de usuário (o que vem antes do @)
-    let username = email.split('@')[0];
-    
-    // 2. Capitaliza a primeira letra (deixa mais bonito)
-    username = username.charAt(0).toUpperCase() + username.slice(1);
+  React.useEffect(() => {
+    const token = localStorage.getItem('ecrf_token');
+    if (!token) {
+      return;
+    }
 
-    // 3. Cria o usuário dinâmico
-    const newUser = {
-      name: username,
-      email: email
-    };
-    
-    setCurrentUser(newUser);
-    console.log("Usuário logado:", newUser.name);
+    meRequest(token)
+      .then((response) => {
+        setCurrentUser(response.data);
+      })
+      .catch(() => {
+        localStorage.removeItem('ecrf_token');
+        setCurrentUser(null);
+      });
+  }, []);
+
+  const login = async (email, password) => {
+    const response = await loginRequest({ email, password });
+    localStorage.setItem('ecrf_token', response.data.token);
+    setCurrentUser(response.data.user);
+    return response.data.user;
   };
 
-  // Função de Logout (continua igual)
   const logout = () => {
+    localStorage.removeItem('ecrf_token');
     setCurrentUser(null);
-    console.log("Usuário deslogado.");
   };
 
   const value = {
     user: currentUser,
     isLoggedIn: !!currentUser,
-    login, // <-- Agora é a nossa nova função
+    login,
     logout
   };
 
@@ -45,7 +48,6 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Hook customizado (continua igual)
 export const useUser = () => {
   return useContext(UserContext);
 };

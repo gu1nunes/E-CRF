@@ -1,53 +1,59 @@
 // packages/client/src/context/CartContext.js
 import React, { createContext, useState, useContext } from 'react';
+import {
+  getCart,
+  addCartItem,
+  updateCartItem,
+  removeCartItem,
+  clearCartRequest,
+  checkoutRequest
+} from '../services/api';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // --- LÓGICA DE ADICIONAR ---
-  const addToCart = (productToAdd) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === productToAdd.id);
+  const syncFromResponse = (response) => {
+    setCartItems(response.data.items || []);
+  };
 
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === productToAdd.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prevItems, { ...productToAdd, quantity: 1 }];
-    });
+  React.useEffect(() => {
+    getCart()
+      .then(syncFromResponse)
+      .catch((error) => {
+        console.error('Erro ao carregar carrinho:', error);
+      });
+  }, []);
+
+  // --- LÓGICA DE ADICIONAR ---
+  const addToCart = async (productToAdd) => {
+    const response = await addCartItem(productToAdd);
+    syncFromResponse(response);
   };
 
   // --- LÓGICA DE DECREMENTAR ---
-  const removeOneFromCart = (productId) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === productId);
-
-      if (existingItem.quantity === 1) {
-        return prevItems.filter((item) => item.id !== productId);
-      }
-      return prevItems.map((item) =>
-        item.id === productId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-    });
+  const removeOneFromCart = async (productId) => {
+    const response = await updateCartItem(productId, 'decrement');
+    syncFromResponse(response);
   };
 
   // --- LÓGICA DE REMOVER TUDO ---
-  const removeAllFromCart = (productId) => {
-    setCartItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== productId);
-    });
+  const removeAllFromCart = async (productId) => {
+    const response = await removeCartItem(productId);
+    syncFromResponse(response);
   };
 
   // --- A FUNÇÃO QUE FALTAVA ---
-  const clearCart = () => {
-    setCartItems([]);
+  const clearCart = async () => {
+    const response = await clearCartRequest();
+    syncFromResponse(response);
+  };
+
+  const checkout = async () => {
+    const response = await checkoutRequest();
+    await clearCart();
+    return response.data;
   };
   
   // --- CÁLCULOS ---
@@ -69,7 +75,8 @@ export const CartProvider = ({ children }) => {
     removeAllFromCart,
     cartCount,
     totalPrice,
-    clearCart, // <-- A LINHA QUE FALTAVA
+    clearCart,
+    checkout
   };
 
   return (
