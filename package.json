@@ -1,0 +1,13 @@
+{
+  "name": "e-crf-microservices",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix services/shared && npm install --prefix services/products-service && npm install --prefix services/auth-service && npm install --prefix services/cart-service && npm install --prefix services/recommendation-service && npm install --prefix services/api-gateway && npm install --prefix client",
+    "dev:all": "concurrently -n products,auth,cart,recommendations,gateway,client -c yellow,green,blue,magenta,cyan,white \"npm run dev --prefix services/products-service\" \"npm run dev --prefix services/auth-service\" \"npm run dev --prefix services/cart-service\" \"npm run dev --prefix services/recommendation-service\" \"npm run dev --prefix services/api-gateway\" \"set PORT=3005&& npm start --prefix client\"",
+    "test:smoke": "node tests/smoke.test.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

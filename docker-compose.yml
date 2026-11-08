@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  products-service:
+    build: ./services/products-service
+    ports:
+      - '3001:3001'
+    environment:
+      - PORT=3001
+
+  auth-service:
+    build: ./services/auth-service
+    ports:
+      - '3002:3002'
+    environment:
+      - PORT=3002
+
+  cart-service:
+    build: ./services/cart-service
+    ports:
+      - '3003:3003'
+    environment:
+      - PORT=3003
+
+  recommendation-service:
+    build: ./services/recommendation-service
+    ports:
+      - '3004:3004'
+    environment:
+      - PORT=3004
+      - PRODUCTS_SERVICE_URL=http://products-service:3001
+    depends_on:
+      - products-service
+
+  api-gateway:
+    build: ./services/api-gateway
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - PRODUCTS_SERVICE_URL=http://products-service:3001
+      - AUTH_SERVICE_URL=http://auth-service:3002
+      - CART_SERVICE_URL=http://cart-service:3003
+      - RECOMMENDATION_SERVICE_URL=http://recommendation-service:3004
+    depends_on:
+      - products-service
+      - auth-service
+      - cart-service
+      - recommendation-service
+
+  client:
+    build: ./client
+    ports:
+      - '3005:3000'
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:3000/api
+    depends_on:
+      - api-gateway

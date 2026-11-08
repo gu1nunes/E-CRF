@@ -4,5 +4,13 @@
 # Arquivos do Windows
 Thumbs.db
 
+# Dependencias Node
+node_modules/
+**/node_modules/
+
+# Variaveis de ambiente
+.env
+.env.*
+
 # Backup local do repositório antigo
 .git_backup_*/
