@@ -17,7 +17,6 @@ const serviceRegistry = [
 ];
 
 app.use(cors());
-app.use(express.json());
 
 /**
  * Health check do gateway.

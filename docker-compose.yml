@@ -1,29 +1,35 @@
-version: '3.9'
-
 services:
   products-service:
-    build: ./services/products-service
+    build:
+      context: .
+      dockerfile: services/products-service/Dockerfile
     ports:
       - '3001:3001'
     environment:
       - PORT=3001
 
   auth-service:
-    build: ./services/auth-service
+    build:
+      context: .
+      dockerfile: services/auth-service/Dockerfile
     ports:
       - '3002:3002'
     environment:
       - PORT=3002
 
   cart-service:
-    build: ./services/cart-service
+    build:
+      context: .
+      dockerfile: services/cart-service/Dockerfile
     ports:
       - '3003:3003'
     environment:
       - PORT=3003
 
   recommendation-service:
-    build: ./services/recommendation-service
+    build:
+      context: .
+      dockerfile: services/recommendation-service/Dockerfile
     ports:
       - '3004:3004'
     environment:
@@ -33,7 +39,9 @@ services:
       - products-service
 
   api-gateway:
-    build: ./services/api-gateway
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
     ports:
       - '3000:3000'
     environment:
